@@ -1,0 +1,54 @@
+package com.espresso_practice.myapplication.ui.main.fragments
+
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+
+import com.espresso_practice.myapplication.R
+import kotlinx.android.synthetic.main.fragment_directors.*
+
+/**
+ * A simple [Fragment] subclass.
+ */
+class DirectorsFragment : Fragment() {
+
+    private val directors: ArrayList<String> = ArrayList()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { args ->
+            directors.addAll(args.get("args_directors") as List<String>)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_directors, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setDirectors()
+    }
+
+    private fun setDirectors(){
+        directors_text.text = stringBuilderForDirectors(directors)
+    }
+
+    companion object{
+        fun stringBuilderForDirectors(directors: ArrayList<String>): String{
+            val sb = StringBuilder()
+            for(director in directors){
+                sb.append(director + "\n")
+            }
+            return sb.toString()
+        }
+    }
+
+}
